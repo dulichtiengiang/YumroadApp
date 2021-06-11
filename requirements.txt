@@ -1,0 +1,12 @@
+flask
+flask-Sqlalchemy
+flask-WTF
+flask-Login
+wtforms[email]
+
+
+gunicorn
+
+pytest
+pytest-flask
+pytest-cov
