@@ -13,7 +13,7 @@ def sample_book():
     db.session.commit()
     return book
 
-def test_product_creation(client, init_database, authenticated_request):
+def test__product_creation(client, init_database, authenticated_request):
     assert Product.query.count() == 0
     book = Product(name="Book of Dev", description="Learning for Dev")
     db.session.add(book)

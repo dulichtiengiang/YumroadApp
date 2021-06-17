@@ -1,4 +1,3 @@
-
 import flask_wtf
 import wtforms
 
@@ -20,6 +19,8 @@ class SignupForm(FlaskForm):
     email = StringField('Email Address:', [validators.DataRequired(), validators.Email(), validators.InputRequired()])
     password = PasswordField('Password:', [validators.DataRequired(), validators.Length(min=4), validators.EqualTo('confirm_password', message='Mat khau khong khop')])
     confirm_password = PasswordField('Confirm Password:',[validators.DataRequired()])
+    store_name = StringField('Store Name: ', [validators.DataRequired(), validators.Length(min=4)])
+
     def validate_email(self, email):
         user = User.query.filter_by(email=self.email.data).first()
         if user is not None:

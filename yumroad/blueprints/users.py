@@ -1,10 +1,11 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request, session
-from flask_login import current_user
-from flask_login.utils import login_user, logout_user
+from flask_login.utils import login_user, logout_user, current_user
 
 from yumroad.extensions import db, login_manager
-from yumroad.models import User
+from yumroad.models import User, Store
 from yumroad.forms import LoginForm, SignupForm
+
+from yumroad.email import send_basic_welcome_message 
 
 bp_user = Blueprint('user', __name__)
 #user loader take in a User ID and return out
@@ -30,9 +31,13 @@ def register():
         #create a user
         user = User.create(form.email.data, form.password.data)
         db.session.add(user)
+        #! store = Store(name=form.store_name.data, user_id=user.id)
+        store = Store(name=form.store_name.data, user=user) #! dùng relationship nên
         db.session.commit()
+
         #Dang nhap san
         login_user(user)
+        send_basic_welcome_message(user.email)
         flash('__flash__Registered successfully', 'success')
         #we need to tell flask_login How to know that a Cookie belongs to a specific user (User cu the) 
         return redirect(url_for('products.index'))

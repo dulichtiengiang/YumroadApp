@@ -3,6 +3,8 @@
 {% block title %}Yumroad | Create New Product{% endblock title %}
 
 {% block content %}
+    <h1 class="yumroad-h1">Create Product</h1>
+    <hr>
     <form method="POST">
         {{ form.csrf_token }}
         {{ render_field(form.name) }}

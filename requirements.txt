@@ -1,9 +1,11 @@
 flask
+
 flask-Sqlalchemy
 flask-WTF
 flask-Login
 wtforms[email]
-
+flask-Migrate
+flask-Mail
 
 gunicorn
 

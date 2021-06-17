@@ -54,9 +54,9 @@ def test_login__already_logged_in(client, init_database, authenticated_request):
     assert b'__flash__You are already logged in' in response.data
 
 def test_register__valid(client, init_database):
-    response = client.post('/register', data=VALID_REGISTER_PARAMS, follow_redirects=True)
+    response = client.post(url_for('user.register'), data=dict(store_name='teststore', email=TEST_EMAIL, password=TEST_PASSWORD, confirm_password=TEST_PASSWORD), follow_redirects=True)
     assert response.status_code == 200
-    assert b'__Registered successfully' in response.data
+    assert b'__flash__Registered successfully' in response.data
     assert TEST_EMAIL in str(response.data)
     assert b'Yumroad' in response.data
 

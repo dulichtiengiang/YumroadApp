@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, abort, redirect, url_for, request, session
-from flask_login.utils import login_required
+from flask_login.utils import login_required, current_user
 from werkzeug.wrappers import response
 
 from yumroad.extensions import db
@@ -27,7 +27,10 @@ def details(product_id):
 def create():
     form = ProductForm()
     if form.validate_on_submit(): #/Validate = Post
-        product = Product(name=form.name.data, description=form.description.data)
+        product = Product(  name=form.name.data,
+                            creator=current_user,
+                            store=current_user.store,
+                            description=form.description.data)
         db.session.add(product)
         db.session.commit()
         return redirect(url_for('products.details', product_id=product.id))

@@ -1,0 +1,27 @@
+{% extends 'base_layout.html' %}
+
+{% block title %}Yumroad | {{ store.name }}{% endblock title %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <h1>{{ store.name }}</h1>
+        </div>
+    {% for product_row in products | batch(3) %}
+        <div class="row mb-3">
+            {% for product in product_row %}
+                <div class="col-sm-4">
+                    <div styel="width: 18rem" class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <p class="card-text">{{ product.description }}</p>
+                        </div>
+                        <div class="card-body">
+                            <a href="{{ url_for('products.details', product_id=product.id) }}" class="card-text">View Detail</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+    </div>
+{% endblock content %}

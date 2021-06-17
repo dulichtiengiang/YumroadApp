@@ -5,3 +5,7 @@
 .yumroad-main-color {
     background-color: var(--main-color) !important;
 }
+
+.yumroad-h1 {
+    font-size: 2rem;
+}
